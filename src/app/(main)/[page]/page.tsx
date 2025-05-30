@@ -35,7 +35,7 @@ const pageTask = async ({params}: {params: {page: number}}) => {
       <div className="text-gray-800 p-8 h-full overflow-auto pb-24">
         <header className="flex justify-between items-center">
         <button id="menuBtn" type="button" className="md:hidden text-2xl"><TfiMenu /></button>
-          <h1 className="text-2xl font-bold flex items-center">All Tasks</h1>
+          <h1 className="text-2xl font-bold flex items-center">All ToDo</h1>
           <Link href='/new' className="flex items-center gap-1 font-semibold border px-4 py-2 rounded-full shadow-sm text-white bg-gray-800 hover:bg-gray-700">
             <MdAddTask className="size-5"/>
             <div>Add Task</div>

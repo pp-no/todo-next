@@ -12,9 +12,9 @@ interface NavItemType {
 
 const NavList = () => {
     const navList: NavItemType[] = [
-        {id: 1, label: 'All Tasks', link: '/', icon: <FaTasks className="size-5" />},
-        {id: 2, label: 'completed Tasks', link: '/completed', icon: <FaRegCheckSquare className="size-5" />},
-        {id: 3, label: 'Expired Tasks', link: '/expired', icon: <FaRegClock className="size-5" />},
+        {id: 1, label: 'All ToDo', link: '/', icon: <FaTasks className="size-5" />},
+        {id: 2, label: 'completed ToDo', link: '/completed', icon: <FaRegCheckSquare className="size-5" />},
+        {id: 3, label: 'Expired ToDo', link: '/expired', icon: <FaRegClock className="size-5" />},
     ]
   return (
     <div className="mt-24">
