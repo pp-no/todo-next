@@ -47,7 +47,7 @@ export default async function MainPage() {
 				))}
 			</div>
 
-			<PagiNation allPageCnt={allPageCnt} />
+			{/* <PagiNation allPageCnt={allPageCnt} /> */}
 		</div>
 	);
 }
