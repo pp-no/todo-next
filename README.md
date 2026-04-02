@@ -18,3 +18,11 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+## MongoDB作成方法（前提：アカウント作成済み）
+- プロジェクト作成
+- クラスタ作成
+　フリープランでデフォルト設定でクリエート
+- セキュリティ
+　0.0.0.0/0
+  Access from anywhere
