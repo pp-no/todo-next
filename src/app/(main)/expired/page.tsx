@@ -1,31 +1,35 @@
 import TaskCard from '@/components/TaskCard/TaskCard';
-import { TaskDocument } from '@/models/task';
+import { TaskDocument, TaskModel } from '@/models/task';
+import { connectDb } from '@/utils/database';
 
 const getExpiredTasks = async (): Promise<TaskDocument[]> => {
-	const response = await fetch(`${process.env.API_URL}/tasks/expired`, {
-		cache: 'no-store',
-	});
-
-	if (response.status !== 200) {
-		throw new Error();
-	}
-
-	const data = await response.json();
-	return data.tasks as TaskDocument[];
+	await connectDb();
+	const currentDate = new Date().toLocaleDateString('ja-JP', {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+	}).replace(/\//g, '-');
+	const tasks = await TaskModel.find({
+		isCompleted: false,
+		dueDate: { $lt: currentDate },
+	}).sort({ dueDate: 1 }).lean();
+	return JSON.parse(JSON.stringify(tasks));
 };
 
 const ExpiredTaskPage = async () => {
 	const expiredTasks = await getExpiredTasks();
 	return (
-		<div className="text-gray-800 p-8 h-full overflow-auto px-5 md:px-48">
-			<header className="flex justify-between items-center">
-				<h1 className="text-2xl font-bold flex items-center">Expired ToDo</h1>
-			</header>
-			<div className="mt-8 flex flex-wrap gap-4">
-				{expiredTasks.map(task => (
-					<TaskCard key={task._id} task={task} />
-				))}
-			</div>
+		<div className="max-w-3xl mx-auto px-6 py-8">
+			<h1 className="text-2xl font-bold text-gray-900 mb-6">期限切れのタスク</h1>
+			{expiredTasks.length === 0 ? (
+				<p className="text-gray-500">期限切れのタスクはありません。</p>
+			) : (
+				<div className="space-y-3">
+					{expiredTasks.map(task => (
+						<TaskCard key={task._id} task={task} />
+					))}
+				</div>
+			)}
 		</div>
 	);
 };

@@ -58,7 +58,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 										: 'bg-amber-100 text-amber-700'
 								}`}
 							>
-								{task.isCompleted ? '✓ Done' : 'In Progress'}
+								{task.isCompleted ? '✓ 完了' : '進行中'}
 							</div>
 						</div>
 
@@ -95,12 +95,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 								<span>{task.dueDate}</span>
 								{isOverdue() && !task.isCompleted && (
 									<span className="ml-1 text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">
-										Overdue
+										期限切れ
 									</span>
 								)}
 								{isUrgent() && !task.isCompleted && (
 									<span className="ml-1 text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
-										Urgent
+										期限間近
 									</span>
 								)}
 							</div>

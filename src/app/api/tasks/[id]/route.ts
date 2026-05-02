@@ -4,11 +4,11 @@ import { connectDb } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 
 // idによるタスク取得
-export const GET = async (_: NextRequest, {params}: {params: {id: string} }) => {
-
+export const GET = async (_: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
+    const { id } = await params;
     try {
         await connectDb()
-        const task = await TaskModel.findById(params.id)
+        const task = await TaskModel.findById(id)
 
         if(!task) {
             return NextResponse.json(

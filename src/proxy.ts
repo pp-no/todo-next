@@ -5,7 +5,7 @@ const IS_AUTH_ENABLED = process.env.IS_BASIC_AUTH_ENABLED === 'true'
 const BASIC_AUTH_USER = process.env.BASIC_AUTH_USER
 const BASIC_AUTH_PASS = process.env.BASIC_AUTH_PASS
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // 認証を無効化する条件（本番など）
   if (!IS_AUTH_ENABLED) {
     return NextResponse.next()

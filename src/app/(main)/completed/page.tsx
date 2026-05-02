@@ -1,31 +1,27 @@
 import TaskCard from '@/components/TaskCard/TaskCard';
-import { TaskDocument } from '@/models/task';
+import { TaskDocument, TaskModel } from '@/models/task';
+import { connectDb } from '@/utils/database';
 
 const getCompletedTasks = async (): Promise<TaskDocument[]> => {
-	const response = await fetch(`${process.env.API_URL}/tasks/completed`, {
-		cache: 'no-store',
-	});
-
-	if (response.status !== 200) {
-		throw new Error();
-	}
-
-	const data = await response.json();
-	return data.tasks as TaskDocument[];
+	await connectDb();
+	const tasks = await TaskModel.find({ isCompleted: true }).sort({ createdAt: -1 }).lean();
+	return JSON.parse(JSON.stringify(tasks));
 };
 
 const CompletedTaskPage = async () => {
 	const completedTasks = await getCompletedTasks();
 	return (
-		<div className="text-gray-800 p-8 h-full overflow-auto px-5 md:px-48">
-			<header className="flex justify-between items-center">
-				<h1 className="text-2xl font-bold flex items-center">completed Todo</h1>
-			</header>
-			<div className="mt-8 flex flex-wrap gap-4">
-				{completedTasks.map(task => (
-					<TaskCard key={task._id} task={task} />
-				))}
-			</div>
+		<div className="max-w-3xl mx-auto px-6 py-8">
+			<h1 className="text-2xl font-bold text-gray-900 mb-6">完了済みのタスク</h1>
+			{completedTasks.length === 0 ? (
+				<p className="text-gray-500">完了済みのタスクはありません。</p>
+			) : (
+				<div className="space-y-3">
+					{completedTasks.map(task => (
+						<TaskCard key={task._id} task={task} />
+					))}
+				</div>
+			)}
 		</div>
 	);
 };

@@ -2,8 +2,9 @@
 'use client'
 
 import { FormState, deleteTask } from '@/actions/task'
+import { useActionState } from 'react'
 import { useEffect } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useFormStatus } from 'react-dom'
 import { FaTrashAlt } from 'react-icons/fa'
 
 interface TaskDeleteButtonProps {
@@ -13,7 +14,7 @@ interface TaskDeleteButtonProps {
 const TaskDeleteButton: React.FC<TaskDeleteButtonProps> = ({ id }) => {
   const deleteTaskWithId = deleteTask.bind(null, id)
   const initialState: FormState = { error: '' }
-  const [state, formAction] = useFormState(deleteTaskWithId, initialState)
+  const [state, formAction] = useActionState(deleteTaskWithId, initialState)
 
   useEffect(() => {
     if (state && state.error !== '') {

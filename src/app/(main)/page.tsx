@@ -1,23 +1,14 @@
-// app/(main)/page.tsx (サーバーコンポーネント)
-import { TaskDocument } from '@/models/task';
+import { TaskDocument, TaskModel } from '@/models/task';
+import { connectDb } from '@/utils/database';
 import MainPageClient from '@/components/MainPageClient';
 
-// 非同期タスク一覧取得
 const getAllTasks = async (): Promise<TaskDocument[]> => {
-	const response = await fetch(`${process.env.API_URL}/tasks`, { cache: 'no-store' });
-
-	// リクエスト失敗
-	if (response.status !== 200) {
-		throw new Error();
-	}
-
-	// リクエスト成功
-	const data = await response.json();
-	return data.tasks as TaskDocument[];
+	await connectDb();
+	const tasks = await TaskModel.find().sort({ createdAt: -1 }).lean();
+	return JSON.parse(JSON.stringify(tasks));
 };
 
 export default async function MainPage() {
 	const allTasks = await getAllTasks();
-
 	return <MainPageClient allTasks={allTasks} />;
 }
