@@ -31,6 +31,8 @@
 | 依存 | `.eslintrc.json` は ESLint 9 で非推奨の旧形式 |
 | 型 | `interface TaskDocument extends Task, Document { _id: string }` は Mongoose の型と衝突する既知のアンチパターン |
 | 状態更新 | `src/actions/task.ts` が `state.error = '...'` と引数を直接書き換えている。React の状態更新として不正で、再レンダリングされない可能性がある |
+| ビルド | `/`・`/completed`・`/expired` が静的プリレンダリングされ、**タスクを追加しても一覧に反映されない**。`createTask` が `revalidatePath` を呼んでいないため |
+| ビルド | 同ページが Server Component から `connectDb()` を呼ぶため、**ビルドが DB の可用性に依存する**。`/expired` は「今日」に依存するにもかかわらずビルド時の日付で固定される |
 
 ---
 
@@ -291,6 +293,8 @@ Phase 1 で同じファイルを触るため、併せて対応するもの。
 | `package.json` にテストスクリプトがない | `"test": "vitest run"` を追加（#9 で実施） |
 | `.eslintrc.json` | `eslint.config.mjs`（flat config）へ移行 |
 | `models/task.ts` の型定義 | `Document` 継承による `_id` の型衝突を解消。`userId` 追加と同時に実施 |
+| 各一覧ページが静的プリレンダリングされる | `export const dynamic = 'force-dynamic'` を明示し、ビルドを DB の可用性から切り離す |
+| Server Actions がキャッシュを更新しない | `revalidatePath` を導入する（`redirect` だけでは静的ページが更新されない） |
 | `actions/task.ts` のエラー返却 | 引数の書き換えをやめ、新しいオブジェクトを返す形に修正 |
 
 ---
@@ -345,7 +349,7 @@ next-auth v5 は `AUTH_` 接頭辞の環境変数を自動的に認識するた�
 
 | Issue | 内容 | 依存 |
 |---|---|---|
-| #2 | 技術的負債の返済（`next.config` の env 削除 / `api/tasks` 削除 / ESLint flat config / lint スクリプト修正） | なし |
+| #2 | 技術的負債の返済（`next.config` の env 削除 / `api/tasks` 削除 / ESLint flat config / lint スクリプト修正 / ビルドの DB 依存解消） | なし |
 | #3 | next-auth v5 の導入と設定分割（`auth.ts` / `auth.config.ts` / `api/auth` ルート） | なし |
 | #4 | User モデルとメール/パスワード登録（bcryptjs / `/signup`） | #3 |
 | #5 | OAuth 連携（GitHub / Google）と衝突時のエラー案内 | #3, #4 |
