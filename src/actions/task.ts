@@ -4,6 +4,7 @@ import { Task, TaskModel } from "@/models/task"
 import { connectDb } from "@/utils/database"
 
 import { redirect } from "next/navigation"
+import { revalidatePath } from "next/cache"
 
 
 
@@ -29,6 +30,7 @@ export const createTask = async (state: FormState, formDate: FormData) => {
         return state
     }
 
+    revalidatePath('/', 'layout')
     redirect('/')
 }
 
@@ -48,6 +50,7 @@ export const updateTask = async (id:string, state: FormState, formData: FormData
         return state
     }
 
+    revalidatePath('/', 'layout')
     redirect('/')
 }
 
@@ -60,5 +63,6 @@ export const deleteTask = async (id: string, state: FormState) => {
       return state;
     }
   
+    revalidatePath('/', 'layout');
     redirect('/');
   };

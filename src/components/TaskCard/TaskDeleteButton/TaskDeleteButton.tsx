@@ -11,6 +11,22 @@ interface TaskDeleteButtonProps {
   id: string
 }
 
+// レンダーのたびに再生成されないようモジュールスコープに置く
+const SubmitButton = () => {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="hover:text-gray-700
+    text-lg cursor-pointer disabled:bg-gray-400"
+    >
+      <FaTrashAlt />
+    </button>
+  )
+}
+
 const TaskDeleteButton: React.FC<TaskDeleteButtonProps> = ({ id }) => {
   const deleteTaskWithId = deleteTask.bind(null, id)
   const initialState: FormState = { error: '' }
@@ -21,21 +37,6 @@ const TaskDeleteButton: React.FC<TaskDeleteButtonProps> = ({ id }) => {
       alert(state.error)
     }
   }, [state])
-
-  const SubmitButton = () => {
-    const { pending } = useFormStatus()
-
-    return (
-      <button
-        type="submit"
-        disabled={pending}
-        className="hover:text-gray-700 
-      text-lg cursor-pointer disabled:bg-gray-400"
-      >
-        <FaTrashAlt />
-      </button>
-    )
-  }
 
   return (
     <form action={formAction}>

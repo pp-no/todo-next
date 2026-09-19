@@ -2,6 +2,9 @@ import TaskCard from '@/components/TaskCard/TaskCard';
 import { TaskDocument, TaskModel } from '@/models/task';
 import { connectDb } from '@/utils/database';
 
+// リクエストのたびに DB を参照する（静的生成されると一覧が更新されない）
+export const dynamic = 'force-dynamic';
+
 const getCompletedTasks = async (): Promise<TaskDocument[]> => {
 	await connectDb();
 	const tasks = await TaskModel.find({ isCompleted: true }).sort({ createdAt: -1 }).lean();
