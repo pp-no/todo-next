@@ -288,7 +288,7 @@ Phase 1 で同じファイルを触るため、併せて対応するもの。
 | `next.config.mjs` の `env` ブロック | **削除**。Basic 認証の撤去に伴い不要。秘密情報のクライアント露出を解消 |
 | `src/app/api/tasks/*` | **削除**。画面から未使用であり、残すと保護対象が増えるだけ |
 | `"lint": "next lint"` | `"lint": "eslint ."` に変更 |
-| `package.json` にテストスクリプトがない | `"test": "vitest run"` を追加（Issue #8 で実施） |
+| `package.json` にテストスクリプトがない | `"test": "vitest run"` を追加（#9 で実施） |
 | `.eslintrc.json` | `eslint.config.mjs`（flat config）へ移行 |
 | `models/task.ts` の型定義 | `Document` 継承による `_id` の型衝突を解消。`userId` 追加と同時に実施 |
 | `actions/task.ts` のエラー返却 | 引数の書き換えをやめ、新しいオブジェクトを返す形に修正 |
@@ -343,18 +343,18 @@ next-auth v5 は `AUTH_` 接頭辞の環境変数を自動的に認識するた�
 
 マイルストーン `Phase 1`。**1 Issue = 1 PR** の粒度とする。
 
-| # | Issue | 依存 |
+| Issue | 内容 | 依存 |
 |---|---|---|
-| 1 | 技術的負債の返済（`next.config` の env 削除 / `api/tasks` 削除 / ESLint flat config / lint スクリプト修正） | なし |
-| 2 | next-auth v5 の導入と設定分割（`auth.ts` / `auth.config.ts` / `api/auth` ルート） | なし |
-| 3 | User モデルとメール/パスワード登録（bcryptjs / `/signup`） | 2 |
-| 4 | OAuth 連携（GitHub / Google）と衝突時のエラー案内 | 2, 3 |
-| 5 | Task への `userId` 追加と DAL 構築 | 3 |
-| 6 | 既存の Server Actions・各ページを DAL 経由へ移行 | 5 |
-| 7 | proxy.ts をセッション判定に置換 + ログイン/ログアウト UI | 6 |
-| 8 | 認可テスト（Vitest + mongodb-memory-server） | 5 |
+| #2 | 技術的負債の返済（`next.config` の env 削除 / `api/tasks` 削除 / ESLint flat config / lint スクリプト修正） | なし |
+| #3 | next-auth v5 の導入と設定分割（`auth.ts` / `auth.config.ts` / `api/auth` ルート） | なし |
+| #4 | User モデルとメール/パスワード登録（bcryptjs / `/signup`） | #3 |
+| #5 | OAuth 連携（GitHub / Google）と衝突時のエラー案内 | #3, #4 |
+| #6 | Task への `userId` 追加と DAL 構築 | #4 |
+| #7 | 既存の Server Actions・各ページを DAL 経由へ移行 | #6 |
+| #8 | proxy.ts をセッション判定に置換 + ログイン/ログアウト UI | #7 |
+| #9 | 認可テスト（Vitest + mongodb-memory-server） | #6 |
 
-Issue #1 を先頭に置くのは、他と依存がなく、かつ「秘密情報がクライアントに露出している」という実害のある問題であるため。
+#2 を先頭に置くのは、他と依存がなく、かつ「秘密情報がクライアントに露出している」という実害のある問題であるため。
 
 ---
 
@@ -376,9 +376,9 @@ Issue #1 を先頭に置くのは、他と依存がなく、かつ「秘密情�
 | リスク | 対応 |
 |---|---|
 | next-auth v5 が beta であり破壊的変更が入りうる | `5.0.0-beta.32` に完全固定。更新は Phase 完了後に個別検討 |
-| `users` コレクションを Mongoose とアダプタで共有するため、フィールド定義がずれると不整合が起きる | Mongoose の User スキーマは `strict: false` を指定し、アダプタが書き込む未定義フィールドを削除させない。Issue #3 で OAuth ログイン後のドキュメント構造を実際に確認する |
+| `users` コレクションを Mongoose とアダプタで共有するため、フィールド定義がずれると不整合が起きる | Mongoose の User スキーマは `strict: false` を指定し、アダプタが書き込む未定義フィールドを削除させない。#4 で OAuth ログイン後のドキュメント構造を実際に確認する |
 | Credentials プロバイダと Adapter の併用は構成を誤ると動作しない | セッション戦略を `jwt` に固定し、Credentials の `authorize` は DAL 経由で自前に DB 照会する |
-| OAuth アプリ登録が実装のブロッカーになる | Issue #4 着手前に GitHub / Google 双方の Client ID / Secret を取得しておく |
+| OAuth アプリ登録が実装のブロッカーになる | #5 着手前に GitHub / Google 双方の Client ID / Secret を取得しておく |
 | Phase 2 で GitHub Actions を追加する際、gh CLI のトークンに `workflow` スコープがない | その時点で `gh auth refresh -s workflow` を実行する |
 
 ---
