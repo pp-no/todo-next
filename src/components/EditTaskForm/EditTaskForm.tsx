@@ -11,6 +11,30 @@ interface EditTaskFormProps {
 	task: TaskDocument;
 }
 
+// レンダーのたびに再生成されないようモジュールスコープに置く
+const SubmitButton = () => {
+	const { pending } = useFormStatus();
+	return (
+		<button
+			type="submit"
+			disabled={pending}
+			className="w-full mt-8 py-3 px-4 rounded-xl text-white font-semibold bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+		>
+			{pending ? (
+				<>
+					<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+					<span>更新中...</span>
+				</>
+			) : (
+				<>
+					<BiCheck className="text-lg" />
+					<span>タスクを更新</span>
+				</>
+			)}
+		</button>
+	);
+};
+
 const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 	const [title, setTitle] = useState(task.title);
 	const [description, setDescription] = useState(task.description);
@@ -20,29 +44,6 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 	const updateTaskWithId = updateTask.bind(null, task._id);
 	const initialState: FormState = { error: '' };
 	const [state, formAction] = useActionState(updateTaskWithId, initialState);
-
-	const SubmitButton = () => {
-		const { pending } = useFormStatus();
-		return (
-			<button
-				type="submit"
-				disabled={pending}
-				className="w-full mt-8 py-3 px-4 rounded-xl text-white font-semibold bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-			>
-				{pending ? (
-					<>
-						<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-						<span>更新中...</span>
-					</>
-				) : (
-					<>
-						<BiCheck className="text-lg" />
-						<span>タスクを更新</span>
-					</>
-				)}
-			</button>
-		);
-	};
 
 	return (
 		<div className="max-w-md mx-auto px-4">

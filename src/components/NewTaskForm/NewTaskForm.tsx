@@ -7,32 +7,33 @@ import { VscAdd } from 'react-icons/vsc';
 import { BiArrowBack } from 'react-icons/bi';
 import Link from 'next/link';
 
+// レンダーのたびに再生成されないようモジュールスコープに置く
+const SubmitButton = () => {
+	const { pending } = useFormStatus();
+	return (
+		<button
+			type="submit"
+			disabled={pending}
+			className="w-full mt-8 py-3 px-4 rounded-xl text-white font-semibold bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+		>
+			{pending ? (
+				<>
+					<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+					<span>作成中...</span>
+				</>
+			) : (
+				<>
+					<VscAdd className="text-lg" />
+					<span>タスクを作成</span>
+				</>
+			)}
+		</button>
+	);
+};
+
 const NewTaskForm = () => {
 	const initialState: FormState = { error: '' };
 	const [state, formAction] = useActionState(createTask, initialState);
-
-	const SubmitButton = () => {
-		const { pending } = useFormStatus();
-		return (
-			<button
-				type="submit"
-				disabled={pending}
-				className="w-full mt-8 py-3 px-4 rounded-xl text-white font-semibold bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-			>
-				{pending ? (
-					<>
-						<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-						<span>作成中...</span>
-					</>
-				) : (
-					<>
-						<VscAdd className="text-lg" />
-						<span>タスクを作成</span>
-					</>
-				)}
-			</button>
-		);
-	};
 
 	return (
 		<div className="max-w-md mx-auto px-4">
