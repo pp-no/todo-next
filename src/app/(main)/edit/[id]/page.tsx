@@ -2,6 +2,9 @@ import EditTaskForm from '@/components/EditTaskForm/EditTaskForm';
 import { TaskDocument, TaskModel } from '@/models/task';
 import { connectDb } from '@/utils/database';
 
+// リクエストのたびに DB を参照する
+export const dynamic = 'force-dynamic';
+
 const getTask = async (id: string): Promise<TaskDocument> => {
 	await connectDb();
 	const task = await TaskModel.findById(id).lean();

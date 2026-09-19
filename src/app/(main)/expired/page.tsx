@@ -2,6 +2,9 @@ import TaskCard from '@/components/TaskCard/TaskCard';
 import { TaskDocument, TaskModel } from '@/models/task';
 import { connectDb } from '@/utils/database';
 
+// 期限切れ判定は実行時の日付に依存するため、静的生成してはならない
+export const dynamic = 'force-dynamic';
+
 const getExpiredTasks = async (): Promise<TaskDocument[]> => {
 	await connectDb();
 	const currentDate = new Date().toLocaleDateString('ja-JP', {
