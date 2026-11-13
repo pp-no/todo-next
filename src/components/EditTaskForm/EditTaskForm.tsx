@@ -4,7 +4,7 @@ import { FormState, updateTask } from '@/actions/task';
 import { TaskDocument } from '@/models/task';
 import { useState, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { BiArrowBack, BiCheck } from 'react-icons/bi';
+import { PiArrowLeft, PiCheck } from 'react-icons/pi';
 import Link from 'next/link';
 
 interface EditTaskFormProps {
@@ -18,7 +18,7 @@ const SubmitButton = () => {
 		<button
 			type="submit"
 			disabled={pending}
-			className="w-full mt-8 py-3 px-4 rounded-xl text-white font-semibold bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+			className="btn-primary w-full mt-8"
 		>
 			{pending ? (
 				<>
@@ -27,7 +27,7 @@ const SubmitButton = () => {
 				</>
 			) : (
 				<>
-					<BiCheck className="text-lg" />
+					<PiCheck className="text-lg" />
 					<span>タスクを更新</span>
 				</>
 			)}
@@ -51,26 +51,28 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 			<div className="mb-8">
 				<Link
 					href="/"
-					className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4 px-3 py-2 rounded-lg hover:bg-white"
+					className="inline-flex items-center gap-2 text-ink-soft hover:text-ink transition-colors mb-4 px-3 py-2 rounded-lg hover:bg-card"
 				>
-					<BiArrowBack className="text-lg" />
-					<span className="text-sm font-medium">戻る</span>
+					<PiArrowLeft className="text-lg" />
+					<span className="text-sm font-bold">戻る</span>
 				</Link>
-				<h1 className="text-2xl font-bold text-gray-900 mb-1">タスクを編集</h1>
-				<p className="text-gray-500 text-sm">内容を変更して更新してください</p>
+				<h1 className="font-hand text-3xl text-ink mb-1">
+					<span className="marker">タスクを編集</span>
+				</h1>
+				<p className="text-ink-soft text-sm">内容を変更して更新してください</p>
 			</div>
 
 			{/* フォーム */}
-			<form action={formAction} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+			<form action={formAction} className="sketch-card p-6">
 				{state.error && (
-					<div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
-						<p className="text-red-700 text-sm font-medium">{state.error}</p>
+					<div className="mb-6 p-4 bg-berry/10 border-2 border-berry rounded-2xl">
+						<p className="text-berry text-sm font-bold">{state.error}</p>
 					</div>
 				)}
 
 				<div className="mb-5">
-					<label htmlFor="title" className="block text-sm font-semibold text-gray-700 mb-2">
-						タイトル <span className="text-red-500">*</span>
+					<label htmlFor="title" className="block text-sm font-bold text-ink mb-2">
+						タイトル <span className="text-berry">*</span>
 					</label>
 					<input
 						type="text"
@@ -81,14 +83,14 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 						required
 						placeholder="タスクのタイトルを入力"
 						maxLength={100}
-						className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors text-gray-900 placeholder-gray-400"
+						className="field"
 					/>
-					<p className="text-xs text-gray-400 mt-1">{title.length}/100文字</p>
+					<p className="text-xs text-ink-soft mt-1">{title.length}/100文字</p>
 				</div>
 
 				<div className="mb-5">
-					<label htmlFor="description" className="block text-sm font-semibold text-gray-700 mb-2">
-						説明 <span className="text-red-500">*</span>
+					<label htmlFor="description" className="block text-sm font-bold text-ink mb-2">
+						説明 <span className="text-berry">*</span>
 					</label>
 					<textarea
 						id="description"
@@ -99,14 +101,14 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 						placeholder="タスクの詳細を入力"
 						maxLength={500}
 						rows={4}
-						className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors text-gray-900 placeholder-gray-400 resize-none"
+						className="field resize-none"
 					/>
-					<p className="text-xs text-gray-400 mt-1">{description.length}/500文字</p>
+					<p className="text-xs text-ink-soft mt-1">{description.length}/500文字</p>
 				</div>
 
 				<div className="mb-5">
-					<label htmlFor="dueDate" className="block text-sm font-semibold text-gray-700 mb-2">
-						期限日 <span className="text-red-500">*</span>
+					<label htmlFor="dueDate" className="block text-sm font-bold text-ink mb-2">
+						期限日 <span className="text-berry">*</span>
 					</label>
 					<input
 						type="date"
@@ -117,12 +119,12 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 						value={dueDate}
 						onChange={e => setDueDate(e.target.value)}
 						required
-						className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors text-gray-900"
+						className="field"
 					/>
 				</div>
 
 				{/* 完了チェックボックス */}
-				<div className="mb-6 p-4 bg-green-50 rounded-xl border border-green-100">
+				<div className="mb-6 p-4 bg-leaf/10 rounded-2xl border-2 border-leaf">
 					<label htmlFor="isCompleted" className="flex items-center gap-3 cursor-pointer">
 						<input
 							type="checkbox"
@@ -130,10 +132,10 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 							name="isCompleted"
 							checked={isCompleted}
 							onChange={e => setIsCompleted(e.target.checked)}
-							className="w-5 h-5 rounded cursor-pointer accent-green-600"
+							className="w-5 h-5 rounded cursor-pointer accent-leaf"
 						/>
-						<span className="text-sm font-medium text-gray-800">完了済みにする</span>
-						{isCompleted && <BiCheck className="ml-auto text-lg text-green-600" />}
+						<span className="text-sm font-bold text-ink">完了済みにする</span>
+						{isCompleted && <PiCheck className="ml-auto text-lg text-leaf" />}
 					</label>
 				</div>
 
@@ -141,7 +143,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 
 				<Link
 					href="/"
-					className="block w-full mt-3 py-3 px-4 rounded-xl text-center text-gray-700 font-semibold bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+					className="btn-ghost w-full mt-3"
 				>
 					キャンセル
 				</Link>

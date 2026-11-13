@@ -15,7 +15,7 @@ const EditTaskPage = async ({ params }: { params: Promise<{ id: string }> }) => 
 	const { id } = await params;
 	const task = await getTask(id);
 	return (
-		<div className="flex flex-col justify-center py-20">
+		<div className="flex flex-col justify-center py-20 bg-paper min-h-full">
 			<EditTaskForm task={task} />
 		</div>
 	);
