@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-	--c-paper: 255 247 232;
-	--c-card: 255 253 247;
+	--c-paper: 245 241 232;
+	--c-card: 251 249 244;
 	--c-ink: 46 42 38;
 	--c-ink-soft: 107 98 90;
-	--c-tomato: 199 62 29;
-	--c-mustard: 246 195 68;
-	--c-mustard-ink: 138 100 16;
-	--c-leaf: 47 122 77;
-	--c-berry: 163 44 71;
-	--c-peach: 255 217 199;
+	--c-tomato: 160 88 68;
+	--c-mustard: 210 176 106;
+	--c-mustard-ink: 120 92 36;
+	--c-leaf: 62 112 84;
+	--c-berry: 140 72 84;
+	--c-peach: 238 224 214;
 }
 
 @layer base {
