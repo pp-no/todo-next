@@ -5,7 +5,7 @@ import { FormState, deleteTask } from '@/actions/task'
 import { useActionState } from 'react'
 import { useEffect } from 'react'
 import { useFormStatus } from 'react-dom'
-import { FaTrashAlt } from 'react-icons/fa'
+import { PiTrash } from 'react-icons/pi'
 
 interface TaskDeleteButtonProps {
   id: string
@@ -19,10 +19,10 @@ const SubmitButton = () => {
     <button
       type="submit"
       disabled={pending}
-      className="hover:text-gray-700
-    text-lg cursor-pointer disabled:bg-gray-400"
+      className="btn-icon text-lg disabled:opacity-60"
+      aria-label="削除する"
     >
-      <FaTrashAlt />
+      <PiTrash />
     </button>
   )
 }

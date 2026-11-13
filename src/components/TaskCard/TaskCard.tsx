@@ -2,7 +2,7 @@
 import { TaskDocument } from '@/models/task';
 import TaskDeleteButton from './TaskDeleteButton/TaskDeleteButton';
 import TaskEditButton from './TaskEditButton/TaskEditButton';
-import { FiCalendar } from 'react-icons/fi';
+import { PiCalendarBlank } from 'react-icons/pi';
 
 interface TaskCardProps {
 	task: TaskDocument;
@@ -28,14 +28,14 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
 	return (
 		<div
-			className={`w-full bg-white rounded-xl shadow-sm border-2 transition-all duration-200 hover:shadow-lg ${
+			className={`sketch-card w-full ${
 				task.isCompleted
-					? 'border-green-100 bg-gradient-to-br from-white to-green-50/30'
+					? 'border-leaf'
 					: isOverdue()
-					? 'border-red-200 bg-gradient-to-br from-white to-red-50/30'
+					? 'border-berry'
 					: isUrgent()
-					? 'border-amber-200 bg-gradient-to-br from-white to-amber-50/30'
-					: 'border-gray-100 hover:border-blue-200'
+					? 'border-mustard tape'
+					: 'border-ink/20 hover:border-tomato'
 			}`}
 		>
 			<div className="p-5 sm:p-6">
@@ -45,17 +45,17 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 					<div className="flex-1 min-w-0">
 						<div className="flex items-start justify-between gap-3 mb-2">
 							<h2
-								className={`text-lg font-semibold leading-tight ${
-									task.isCompleted ? 'text-gray-500 line-through' : 'text-gray-800'
+								className={`text-lg font-bold leading-tight ${
+									task.isCompleted ? 'text-ink-soft line-through' : 'text-ink'
 								}`}
 							>
 								{task.title}
 							</h2>
 							<div
-								className={`flex-shrink-0 text-xs font-medium px-3 py-1 rounded-full ${
+								className={`flex-shrink-0 text-xs font-bold px-3 py-1 ${
 									task.isCompleted
-										? 'bg-green-100 text-green-700'
-										: 'bg-amber-100 text-amber-700'
+										? 'stamp'
+										: 'chip border-mustard bg-mustard/30 text-mustard-ink'
 								}`}
 							>
 								{task.isCompleted ? '✓ 完了' : '進行中'}
@@ -66,7 +66,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 						{task.description && (
 							<p
 								className={`text-sm leading-relaxed line-clamp-2 ${
-									task.isCompleted ? 'text-gray-400' : 'text-gray-600'
+									task.isCompleted ? 'text-ink-soft/70' : 'text-ink-soft'
 								}`}
 							>
 								{task.description}
@@ -76,30 +76,30 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 				</div>
 
 				{/* フッターセクション */}
-				<div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-4 border-t border-gray-100">
+				<div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-4 border-t-2 border-ink/10">
 					{/* 期限表示 */}
 					<div className="flex items-center gap-4">
 						{task.dueDate && (
 							<div
 								className={`flex items-center gap-1.5 text-sm ${
 									task.isCompleted
-										? 'text-gray-400'
+										? 'text-ink-soft'
 										: isOverdue()
-										? 'text-red-600 font-medium'
+										? 'text-berry font-bold'
 										: isUrgent()
-										? 'text-amber-600 font-medium'
-										: 'text-gray-600'
+										? 'text-mustard-ink font-bold'
+										: 'text-ink-soft'
 								}`}
 							>
-								<FiCalendar className="text-base" />
+								<PiCalendarBlank className="text-base" />
 								<span>{task.dueDate}</span>
 								{isOverdue() && !task.isCompleted && (
-									<span className="ml-1 text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">
+									<span className="chip ml-1 border-berry bg-berry/10 text-berry">
 										期限切れ
 									</span>
 								)}
 								{isUrgent() && !task.isCompleted && (
-									<span className="ml-1 text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
+									<span className="chip ml-1 border-mustard bg-mustard/30 text-mustard-ink">
 										期限間近
 									</span>
 								)}
