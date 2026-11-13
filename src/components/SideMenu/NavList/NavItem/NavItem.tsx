@@ -16,12 +16,10 @@ const NavItem: React.FC<NavItemProps> = ({ label, link, icon }) => {
 		<Link
 			href={link}
 			className={`flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-colors ${
-				isActive
-					? 'bg-mustard/30 text-ink underline decoration-wavy decoration-tomato underline-offset-4'
-					: 'text-ink-soft hover:bg-card hover:text-ink'
+				isActive ? 'bg-ink/5 text-ink' : 'text-ink-soft hover:bg-card hover:text-ink'
 			}`}
 		>
-			<span className={isActive ? 'text-tomato' : 'text-ink-soft'}>{icon}</span>
+			<span className={isActive ? 'text-ink' : 'text-ink-soft'}>{icon}</span>
 			<span>{label}</span>
 		</Link>
 	);
