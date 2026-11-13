@@ -30,12 +30,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 		<div
 			className={`sketch-card w-full ${
 				task.isCompleted
-					? 'border-leaf'
+					? 'border-leaf/40'
 					: isOverdue()
-						? 'border-berry'
+						? 'border-berry/60'
 						: isUrgent()
-							? 'border-mustard tape'
-							: 'border-ink/20 hover:border-tomato'
+							? 'border-mustard/70'
+							: 'border-ink/15 hover:border-ink/40'
 			}`}
 		>
 			<div className="p-5 sm:p-6">
@@ -53,7 +53,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 							</h2>
 							<div
 								className={`flex-shrink-0 text-xs font-bold px-3 py-1 ${
-									task.isCompleted ? 'stamp' : 'chip border-mustard bg-mustard/30 text-mustard-ink'
+									task.isCompleted ? 'stamp' : 'chip border-ink/15 text-ink-soft'
 								}`}
 							>
 								{task.isCompleted ? '✓ 完了' : '進行中'}
@@ -62,13 +62,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
 						{/* 説明文 */}
 						{task.description && (
-							<p
-								className={`text-sm leading-relaxed line-clamp-2 ${
-									task.isCompleted ? 'text-ink-soft/70' : 'text-ink-soft'
-								}`}
-							>
-								{task.description}
-							</p>
+							<p className="text-sm leading-relaxed line-clamp-2 text-ink-soft">{task.description}</p>
 						)}
 					</div>
 				</div>
