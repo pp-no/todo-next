@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Yomogi, Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const yomogi = Yomogi({
+  weight: "400",
+  subsets: ["latin"],
+  preload: false,
+  variable: "--font-yomogi",
+});
+
+const zenMaruGothic = Zen_Maru_Gothic({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  preload: false,
+  variable: "--font-zen-maru",
+});
 
 export const metadata: Metadata = {
   title: "ToDo List",
@@ -15,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="ja">
+      <body className={`${yomogi.variable} ${zenMaruGothic.variable}`}>{children}</body>
     </html>
   );
 }
