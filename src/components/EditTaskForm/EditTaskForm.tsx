@@ -52,16 +52,14 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 					<PiArrowLeft className="text-lg" />
 					<span className="text-sm font-bold">戻る</span>
 				</Link>
-				<h1 className="font-hand text-3xl text-ink mb-1">
-					<span className="marker">タスクを編集</span>
-				</h1>
+				<h1 className="font-hand text-3xl text-ink mb-1">タスクを編集</h1>
 				<p className="text-ink-soft text-sm">内容を変更して更新してください</p>
 			</div>
 
 			{/* フォーム */}
 			<form action={formAction} className="sketch-card p-6">
 				{state.error && (
-					<div className="mb-6 p-4 bg-berry/10 border-2 border-berry rounded-2xl">
+					<div className="mb-6 p-4 bg-berry/10 border border-berry/40 rounded-2xl">
 						<p className="text-berry text-sm font-bold">{state.error}</p>
 					</div>
 				)}
@@ -120,7 +118,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 				</div>
 
 				{/* 完了チェックボックス */}
-				<div className="mb-6 p-4 bg-leaf/10 rounded-2xl border-2 border-leaf">
+				<div className="mb-6 p-4 bg-leaf/10 rounded-2xl border border-leaf/40">
 					<label htmlFor="isCompleted" className="flex items-center gap-3 cursor-pointer">
 						<input
 							type="checkbox"
