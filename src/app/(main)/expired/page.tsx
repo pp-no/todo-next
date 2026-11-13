@@ -23,9 +23,11 @@ const ExpiredTaskPage = async () => {
 	const expiredTasks = await getExpiredTasks();
 	return (
 		<div className="max-w-3xl mx-auto px-6 py-8">
-			<h1 className="text-2xl font-bold text-gray-900 mb-6">期限切れのタスク</h1>
+			<h1 className="font-hand text-3xl text-ink mb-6">
+				<span className="marker">期限切れのタスク</span>
+			</h1>
 			{expiredTasks.length === 0 ? (
-				<p className="text-gray-500">期限切れのタスクはありません。</p>
+				<p className="text-ink-soft">期限切れのタスクはありません。</p>
 			) : (
 				<div className="space-y-3">
 					{expiredTasks.map(task => (
