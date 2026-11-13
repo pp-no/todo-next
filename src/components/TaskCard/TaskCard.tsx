@@ -62,7 +62,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
 						{/* 説明文 */}
 						{task.description && (
-							<p className="text-sm leading-relaxed line-clamp-2 text-ink-soft">{task.description}</p>
+							<p className="text-sm leading-relaxed line-clamp-2 text-ink-soft">
+								{task.description}
+							</p>
 						)}
 					</div>
 				</div>
