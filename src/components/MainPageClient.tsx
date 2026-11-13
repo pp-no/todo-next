@@ -5,9 +5,10 @@ import TaskCard from '@/components/TaskCard/TaskCard';
 import { TaskDocument } from '@/models/task';
 import Link from 'next/link';
 
-import { PiPlusBold, PiX } from 'react-icons/pi';
-import { PiList } from 'react-icons/pi';
 import {
+	PiPlusBold,
+	PiX,
+	PiList,
 	PiNotePencilDuotone,
 	PiHouseDuotone,
 	PiCheckCircleDuotone,
@@ -162,12 +163,12 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 				</div>
 
 				{/* フィルタータブ */}
-				<div className="flex gap-2 mb-6">
+				<div className="flex gap-1.5 sm:gap-2 mb-6 overflow-x-auto">
 					{filterItems.map(item => (
 						<button
 							key={item.status}
 							onClick={() => setFilterStatus(item.status)}
-							className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 border-ink text-sm font-bold transition-colors ${
+							className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 border-ink px-3 py-1.5 text-xs font-bold transition-colors sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${
 								filterStatus === item.status
 									? 'bg-tomato text-white shadow-sticker-sm'
 									: 'bg-card text-ink-soft hover:bg-paper'
@@ -175,7 +176,7 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 						>
 							{item.label}
 							<span
-								className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${
+								className={`whitespace-nowrap rounded-full px-1.5 py-0.5 text-xs font-bold ${
 									filterStatus === item.status ? 'bg-white/20 text-white' : 'bg-paper text-ink-soft'
 								}`}
 							>
