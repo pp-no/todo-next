@@ -1,17 +1,17 @@
 // 全ページに反映される
-import SideMenu from "@/components/SideMenu/SideMenu";
+import SideMenu from '@/components/SideMenu/SideMenu';
 
-const MainLayout  = ({
-    children,
+const MainLayout = ({
+	children,
 }: Readonly<{
-  children: React.ReactNode;
-}>)  => {
-  return (
-    <div className="flex h-screen bg-gray-50">
-        <SideMenu />
-        <main className="flex-1 overflow-auto">{children}</main>
-    </div>
-  )
-}
+	children: React.ReactNode;
+}>) => {
+	return (
+		<div className="flex h-screen bg-paper">
+			<SideMenu />
+			<main className="flex-1 overflow-auto">{children}</main>
+		</div>
+	);
+};
 
-export default MainLayout
+export default MainLayout;

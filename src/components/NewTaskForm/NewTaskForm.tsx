@@ -3,19 +3,14 @@
 import { createTask, FormState } from '@/actions/task';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { VscAdd } from 'react-icons/vsc';
-import { BiArrowBack } from 'react-icons/bi';
+import { PiPlusBold, PiArrowLeft } from 'react-icons/pi';
 import Link from 'next/link';
 
 // レンダーのたびに再生成されないようモジュールスコープに置く
 const SubmitButton = () => {
 	const { pending } = useFormStatus();
 	return (
-		<button
-			type="submit"
-			disabled={pending}
-			className="w-full mt-8 py-3 px-4 rounded-xl text-white font-semibold bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-		>
+		<button type="submit" disabled={pending} className="btn-primary w-full mt-8">
 			{pending ? (
 				<>
 					<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -23,7 +18,7 @@ const SubmitButton = () => {
 				</>
 			) : (
 				<>
-					<VscAdd className="text-lg" />
+					<PiPlusBold className="text-lg" />
 					<span>タスクを作成</span>
 				</>
 			)}
@@ -41,26 +36,28 @@ const NewTaskForm = () => {
 			<div className="mb-8">
 				<Link
 					href="/"
-					className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4 px-3 py-2 rounded-lg hover:bg-white"
+					className="inline-flex items-center gap-2 text-ink-soft hover:text-ink transition-colors mb-4 px-3 py-2 rounded-lg hover:bg-card"
 				>
-					<BiArrowBack className="text-lg" />
-					<span className="text-sm font-medium">戻る</span>
+					<PiArrowLeft className="text-lg" />
+					<span className="text-sm font-bold">戻る</span>
 				</Link>
-				<h1 className="text-2xl font-bold text-gray-900 mb-1">新しいタスクを作成</h1>
-				<p className="text-gray-500 text-sm">必須項目をすべて入力してください</p>
+				<h1 className="font-hand text-3xl text-ink mb-1">
+					<span className="marker">新しいタスクを作成</span>
+				</h1>
+				<p className="text-ink-soft text-sm">必須項目をすべて入力してください</p>
 			</div>
 
 			{/* フォーム */}
-			<form action={formAction} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+			<form action={formAction} className="sketch-card p-6">
 				{state.error && (
-					<div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
-						<p className="text-red-700 text-sm font-medium">{state.error}</p>
+					<div className="mb-6 p-4 bg-berry/10 border-2 border-berry rounded-2xl">
+						<p className="text-berry text-sm font-bold">{state.error}</p>
 					</div>
 				)}
 
 				<div className="mb-5">
-					<label htmlFor="title" className="block text-sm font-semibold text-gray-700 mb-2">
-						タイトル <span className="text-red-500">*</span>
+					<label htmlFor="title" className="block text-sm font-bold text-ink mb-2">
+						タイトル <span className="text-berry">*</span>
 					</label>
 					<input
 						type="text"
@@ -69,14 +66,14 @@ const NewTaskForm = () => {
 						required
 						placeholder="タスクのタイトルを入力"
 						maxLength={100}
-						className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors text-gray-900 placeholder-gray-400"
+						className="field"
 					/>
-					<p className="text-xs text-gray-400 mt-1">最大100文字</p>
+					<p className="text-xs text-ink-soft mt-1">最大100文字</p>
 				</div>
 
 				<div className="mb-5">
-					<label htmlFor="description" className="block text-sm font-semibold text-gray-700 mb-2">
-						説明 <span className="text-red-500">*</span>
+					<label htmlFor="description" className="block text-sm font-bold text-ink mb-2">
+						説明 <span className="text-berry">*</span>
 					</label>
 					<textarea
 						id="description"
@@ -85,14 +82,14 @@ const NewTaskForm = () => {
 						placeholder="タスクの詳細を入力"
 						maxLength={500}
 						rows={4}
-						className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors text-gray-900 placeholder-gray-400 resize-none"
+						className="field resize-none"
 					/>
-					<p className="text-xs text-gray-400 mt-1">最大500文字</p>
+					<p className="text-xs text-ink-soft mt-1">最大500文字</p>
 				</div>
 
 				<div className="mb-6">
-					<label htmlFor="dueDate" className="block text-sm font-semibold text-gray-700 mb-2">
-						期限日 <span className="text-red-500">*</span>
+					<label htmlFor="dueDate" className="block text-sm font-bold text-ink mb-2">
+						期限日 <span className="text-berry">*</span>
 					</label>
 					<input
 						type="date"
@@ -101,16 +98,13 @@ const NewTaskForm = () => {
 						min={new Date().toISOString().split('T')[0]}
 						max="2999-12-31"
 						required
-						className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors text-gray-900"
+						className="field"
 					/>
 				</div>
 
 				<SubmitButton />
 
-				<Link
-					href="/"
-					className="block w-full mt-3 py-3 px-4 rounded-xl text-center text-gray-700 font-semibold bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
-				>
+				<Link href="/" className="btn-ghost w-full mt-3">
 					キャンセル
 				</Link>
 			</form>

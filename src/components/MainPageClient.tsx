@@ -5,9 +5,16 @@ import TaskCard from '@/components/TaskCard/TaskCard';
 import { TaskDocument } from '@/models/task';
 import Link from 'next/link';
 
-import { VscAdd, VscClose } from 'react-icons/vsc';
-import { TfiMenu } from 'react-icons/tfi';
-import { BiTask, BiHome, BiCheckCircle, BiTimeFive } from 'react-icons/bi';
+import {
+	PiPlusBold,
+	PiX,
+	PiList,
+	PiNotePencilDuotone,
+	PiHouseDuotone,
+	PiCheckCircleDuotone,
+	PiClockDuotone,
+	PiNotebookDuotone,
+} from 'react-icons/pi';
 
 interface MainPageClientProps {
 	allTasks: TaskDocument[];
@@ -31,13 +38,20 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 
 	useEffect(() => {
 		document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
-		return () => { document.body.style.overflow = 'unset'; };
+		return () => {
+			document.body.style.overflow = 'unset';
+		};
 	}, [isMenuOpen]);
 
 	const filterItems = [
-		{ label: 'すべて', status: 'all' as const, icon: <BiHome />, count: allPageCnt },
-		{ label: '未完了', status: 'pending' as const, icon: <BiTimeFive />, count: pendingTasks },
-		{ label: '完了済み', status: 'completed' as const, icon: <BiCheckCircle />, count: completedTasks },
+		{ label: 'すべて', status: 'all' as const, icon: <PiHouseDuotone />, count: allPageCnt },
+		{ label: '未完了', status: 'pending' as const, icon: <PiClockDuotone />, count: pendingTasks },
+		{
+			label: '完了済み',
+			status: 'completed' as const,
+			icon: <PiCheckCircleDuotone />,
+			count: completedTasks,
+		},
 	];
 
 	return (
@@ -48,26 +62,24 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 					isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
 				}`}
 			>
-				<div className="absolute inset-0 bg-black/40" onClick={closeMenu} />
+				<div className="absolute inset-0 bg-ink/40" onClick={closeMenu} />
 				<div
-					className={`absolute left-0 top-0 bottom-0 w-72 bg-white shadow-xl transform transition-transform duration-300 ${
+					className={`absolute left-0 top-0 bottom-0 w-72 bg-card border-r-2 border-ink shadow-sticker transform transition-transform duration-300 ${
 						isMenuOpen ? 'translate-x-0' : '-translate-x-full'
 					}`}
 				>
 					<div className="p-5">
 						<div className="flex items-center justify-between mb-6">
 							<div className="flex items-center gap-3">
-								<div className="bg-blue-600 p-2 rounded-xl">
-									<BiTask className="text-white text-xl" />
+								<div className="flex items-center justify-center rounded-full border-2 border-ink bg-peach p-2">
+									<PiNotePencilDuotone className="text-ink text-xl" />
 								</div>
-								<h2 className="text-xl font-bold text-gray-900">My ToDo</h2>
+								<h2 className="font-hand text-2xl text-ink">
+									<span className="marker">My ToDo</span>
+								</h2>
 							</div>
-							<button
-								onClick={closeMenu}
-								className="p-2 rounded-lg text-gray-500 hover:bg-gray-100"
-								aria-label="メニューを閉じる"
-							>
-								<VscClose className="text-xl" />
+							<button onClick={closeMenu} className="btn-icon" aria-label="メニューを閉じる">
+								<PiX className="text-xl" />
 							</button>
 						</div>
 
@@ -75,20 +87,23 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							{filterItems.map(item => (
 								<button
 									key={item.status}
-									onClick={() => { setFilterStatus(item.status); closeMenu(); }}
-									className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+									onClick={() => {
+										setFilterStatus(item.status);
+										closeMenu();
+									}}
+									className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-colors ${
 										filterStatus === item.status
-											? 'bg-blue-50 text-blue-700 font-semibold'
-											: 'text-gray-600 hover:bg-gray-50'
+											? 'bg-mustard/30 text-ink underline decoration-wavy decoration-tomato underline-offset-4'
+											: 'text-ink-soft hover:bg-paper'
 									}`}
 								>
 									<span className="text-lg">{item.icon}</span>
 									<span>{item.label}</span>
 									<span
-										className={`ml-auto text-xs font-bold px-2 py-1 rounded-full ${
+										className={`chip ml-auto ${
 											filterStatus === item.status
-												? 'bg-blue-100 text-blue-700'
-												: 'bg-gray-100 text-gray-600'
+												? 'border-tomato bg-tomato/10 text-tomato'
+												: 'border-ink/30 text-ink-soft'
 										}`}
 									>
 										{item.count}
@@ -97,12 +112,8 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							))}
 						</nav>
 
-						<Link
-							href="/new"
-							onClick={closeMenu}
-							className="mt-6 flex items-center justify-center gap-2 w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors"
-						>
-							<VscAdd />
+						<Link href="/new" onClick={closeMenu} className="btn-primary w-full mt-6">
+							<PiPlusBold />
 							<span>新しいタスク</span>
 						</Link>
 					</div>
@@ -116,60 +127,57 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 					<div className="flex items-center gap-3">
 						<button
 							onClick={() => setIsMenuOpen(true)}
-							className="md:hidden p-2 rounded-lg text-gray-500 hover:bg-white hover:shadow-sm transition-all"
+							className="btn-icon md:hidden"
 							aria-label="メニューを開く"
 						>
-							<TfiMenu className="text-xl" />
+							<PiList className="text-xl" />
 						</button>
-						<h1 className="text-2xl font-bold text-gray-900">
-							{filterStatus === 'all' && 'すべてのタスク'}
-							{filterStatus === 'pending' && '未完了のタスク'}
-							{filterStatus === 'completed' && '完了済みのタスク'}
+						<h1 className="font-hand text-3xl text-ink">
+							<span className="marker">
+								{filterStatus === 'all' && 'すべてのタスク'}
+								{filterStatus === 'pending' && '未完了のタスク'}
+								{filterStatus === 'completed' && '完了済みのタスク'}
+							</span>
 						</h1>
 					</div>
-					<Link
-						href="/new"
-						className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-sm"
-					>
-						<VscAdd className="text-lg" />
+					<Link href="/new" className="btn-primary hidden md:flex">
+						<PiPlusBold className="text-lg" />
 						<span>新しいタスク</span>
 					</Link>
 				</div>
 
 				{/* 統計カード */}
 				<div className="grid grid-cols-3 gap-4 mb-6">
-					<div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-						<p className="text-sm text-gray-500 mb-1">合計</p>
-						<p className="text-3xl font-bold text-gray-800">{allPageCnt}</p>
+					<div className="rounded-[22px_14px_22px_14px] border-2 border-ink bg-peach p-4 shadow-sticker-sm -rotate-1">
+						<p className="text-sm text-ink-soft mb-1">合計</p>
+						<p className="font-hand text-3xl text-ink">{allPageCnt}</p>
 					</div>
-					<div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-						<p className="text-sm text-gray-500 mb-1">未完了</p>
-						<p className="text-3xl font-bold text-amber-500">{pendingTasks}</p>
+					<div className="rounded-[14px_22px_14px_22px] border-2 border-ink bg-mustard/40 p-4 shadow-sticker-sm rotate-1">
+						<p className="text-sm text-ink-soft mb-1">未完了</p>
+						<p className="font-hand text-3xl text-mustard-ink">{pendingTasks}</p>
 					</div>
-					<div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-						<p className="text-sm text-gray-500 mb-1">完了済み</p>
-						<p className="text-3xl font-bold text-green-500">{completedTasks}</p>
+					<div className="rounded-[22px_14px_22px_14px] border-2 border-ink bg-leaf/15 p-4 shadow-sticker-sm -rotate-1">
+						<p className="text-sm text-ink-soft mb-1">完了済み</p>
+						<p className="font-hand text-3xl text-leaf">{completedTasks}</p>
 					</div>
 				</div>
 
 				{/* フィルタータブ */}
-				<div className="flex gap-2 mb-6">
+				<div className="flex gap-1.5 sm:gap-2 mb-6 overflow-x-auto">
 					{filterItems.map(item => (
 						<button
 							key={item.status}
 							onClick={() => setFilterStatus(item.status)}
-							className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+							className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 border-ink px-3 py-1.5 text-xs font-bold transition-colors sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${
 								filterStatus === item.status
-									? 'bg-blue-600 text-white shadow-sm'
-									: 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+									? 'bg-tomato text-white shadow-sticker-sm'
+									: 'bg-card text-ink-soft hover:bg-paper'
 							}`}
 						>
 							{item.label}
 							<span
-								className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${
-									filterStatus === item.status
-										? 'bg-blue-500 text-white'
-										: 'bg-gray-100 text-gray-600'
+								className={`whitespace-nowrap rounded-full px-1.5 py-0.5 text-xs font-bold ${
+									filterStatus === item.status ? 'bg-white/20 text-white' : 'bg-paper text-ink-soft'
 								}`}
 							>
 								{item.count}
@@ -181,25 +189,23 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 				{/* タスクリスト */}
 				{filteredTasks.length === 0 ? (
 					<div className="flex flex-col items-center justify-center py-20 text-center">
-						<div className="bg-gray-100 p-5 rounded-full mb-4">
-							<BiTask className="text-5xl text-gray-400" />
+						<div className="flex items-center justify-center rounded-full border-2 border-ink bg-peach p-5 mb-4">
+							<PiNotebookDuotone className="text-5xl text-ink" />
 						</div>
-						<h2 className="text-xl font-semibold text-gray-700 mb-2">
+						<h2 className="font-hand text-2xl text-ink mb-2">
 							{filterStatus === 'all' && 'タスクがありません'}
 							{filterStatus === 'pending' && '未完了のタスクはありません'}
 							{filterStatus === 'completed' && '完了済みのタスクはありません'}
 						</h2>
-						<p className="text-gray-500 text-sm mb-6">
+						<div className="doodle-swirl w-24 h-6 mb-4" />
+						<p className="text-ink-soft text-sm mb-6">
 							{filterStatus === 'all' && '新しいタスクを追加してみましょう'}
 							{filterStatus === 'pending' && 'すべてのタスクが完了しています！'}
 							{filterStatus === 'completed' && 'タスクを完了するとここに表示されます'}
 						</p>
 						{filterStatus === 'all' && (
-							<Link
-								href="/new"
-								className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors"
-							>
-								<VscAdd />
+							<Link href="/new" className="btn-primary">
+								<PiPlusBold />
 								<span>タスクを追加</span>
 							</Link>
 						)}
