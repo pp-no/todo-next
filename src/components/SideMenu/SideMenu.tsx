@@ -10,7 +10,9 @@ const SideMenu = () => {
 				<div className="flex items-center justify-center rounded-full border-2 border-ink bg-peach p-2">
 					<PiNotePencilDuotone className="text-ink text-xl" />
 				</div>
-				<h1 className="font-hand text-2xl text-ink">My ToDo</h1>
+				<h1 className="font-hand text-2xl text-ink">
+					<span className="marker">My ToDo</span>
+				</h1>
 			</div>
 
 			{/* ナビゲーション */}

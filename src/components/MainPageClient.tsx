@@ -73,7 +73,9 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 								<div className="flex items-center justify-center rounded-full border-2 border-ink bg-peach p-2">
 									<PiNotePencilDuotone className="text-ink text-xl" />
 								</div>
-								<h2 className="font-hand text-2xl text-ink">My ToDo</h2>
+								<h2 className="font-hand text-2xl text-ink">
+									<span className="marker">My ToDo</span>
+								</h2>
 							</div>
 							<button onClick={closeMenu} className="btn-icon" aria-label="メニューを閉じる">
 								<PiX className="text-xl" />
