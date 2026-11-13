@@ -29,8 +29,8 @@ const config: Config = {
 				sans: ['var(--font-zen-maru)', 'sans-serif'],
 			},
 			boxShadow: {
-				sticker: '4px 5px 0 0 rgb(var(--c-ink))',
-				'sticker-sm': '2px 3px 0 0 rgb(var(--c-ink))',
+				sticker: '2px 3px 0 0 rgb(var(--c-ink) / 0.15)',
+				'sticker-sm': '1px 2px 0 0 rgb(var(--c-ink) / 0.15)',
 			},
 		},
 	},

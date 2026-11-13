@@ -22,85 +22,79 @@
 
 	body {
 		@apply bg-paper text-ink font-sans;
-		background-image: radial-gradient(circle at 1px 1px, rgb(var(--c-ink) / 0.07) 1px, transparent 0);
+		background-image: radial-gradient(circle at 1px 1px, rgb(var(--c-ink) / 0.04) 1px, transparent 0);
 		background-size: 22px 22px;
 	}
 
-	h1,
-	h2,
-	h3 {
+	h1 {
 		@apply font-hand;
 	}
 
 	*:focus-visible {
-		outline: 3px dashed rgb(var(--c-tomato));
+		outline: 2px solid rgb(var(--c-tomato));
 		outline-offset: 2px;
 	}
 }
 
 @layer components {
-	/* 主アクションのボタン：トマト地・白文字のシール風 */
+	/* 主アクションのボタン */
 	.btn-primary {
-		@apply inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-ink bg-tomato px-5 py-3 font-bold text-white shadow-sticker transition-transform duration-150 ease-out;
+		@apply inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-transparent bg-tomato px-5 py-3 font-bold text-white shadow-sticker transition duration-150 ease-out;
 	}
 	.btn-primary:hover {
-		@apply -translate-x-0.5 -translate-y-0.5;
-		box-shadow: 6px 7px 0 0 rgb(var(--c-ink));
+		@apply bg-tomato/90;
 	}
 	.btn-primary:active {
-		@apply translate-x-0.5 translate-y-0.5;
-		box-shadow: 1px 1px 0 0 rgb(var(--c-ink));
+		@apply translate-y-px;
+		box-shadow: 1px 1px 0 0 rgb(var(--c-ink) / 0.15);
 	}
 	.btn-primary:disabled {
 		@apply cursor-not-allowed opacity-60;
 		transform: none;
-		box-shadow: 4px 5px 0 0 rgb(var(--c-ink));
+		box-shadow: 2px 3px 0 0 rgb(var(--c-ink) / 0.15);
 	}
 
 	/* 補助ボタン：キャンセルや戻る等 */
 	.btn-ghost {
-		@apply inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-ink bg-card px-5 py-3 font-bold text-ink shadow-sticker-sm transition-transform duration-150 ease-out;
+		@apply inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-ink/25 bg-card px-5 py-3 font-bold text-ink shadow-sticker-sm transition duration-150 ease-out;
 	}
 	.btn-ghost:hover {
-		@apply -translate-x-0.5 -translate-y-0.5;
-		box-shadow: 4px 5px 0 0 rgb(var(--c-ink));
+		@apply bg-paper;
 	}
 	.btn-ghost:active {
-		@apply translate-x-0.5 translate-y-0.5;
-		box-shadow: 0 0 0 0 rgb(var(--c-ink));
+		@apply translate-y-px;
+		box-shadow: 0 0 0 0 rgb(var(--c-ink) / 0.15);
 	}
 
-	/* 丸いハンコ風のアイコンボタン（編集・削除） */
+	/* 丸いアイコンボタン（編集・削除） */
 	.btn-icon {
-		@apply inline-flex items-center justify-center rounded-full border-2 border-ink bg-card p-2.5 text-ink shadow-sticker-sm transition-transform duration-150 ease-out;
+		@apply inline-flex items-center justify-center rounded-full border-2 border-ink/25 bg-card p-2.5 text-ink shadow-sticker-sm transition duration-150 ease-out;
 	}
 	.btn-icon:hover {
-		@apply -translate-x-0.5 -translate-y-0.5;
-		box-shadow: 4px 5px 0 0 rgb(var(--c-ink));
+		@apply bg-paper;
 	}
 	.btn-icon:active {
-		@apply translate-x-0.5 translate-y-0.5;
-		box-shadow: 0 0 0 0 rgb(var(--c-ink));
+		@apply translate-y-px;
+		box-shadow: 0 0 0 0 rgb(var(--c-ink) / 0.15);
 	}
 
-	/* カードの共通土台：不揃いな角丸とずらした影 */
+	/* カードの共通土台：わずかに不揃いな角丸 */
 	.sketch-card {
-		@apply rounded-[26px_14px_26px_14px] border-2 border-ink bg-card shadow-sticker-sm transition-transform duration-150 ease-out;
+		@apply rounded-[20px_14px_20px_14px] border-2 border-ink/15 bg-card shadow-sticker-sm transition-colors duration-150 ease-out;
 	}
 	.sketch-card:nth-child(odd) {
-		@apply rounded-[14px_26px_14px_26px];
+		@apply rounded-[14px_20px_14px_20px];
 	}
 	.sketch-card:nth-child(3n) {
-		@apply rounded-[22px_22px_14px_28px];
+		@apply rounded-[18px_16px_18px_14px];
 	}
 	.sketch-card:hover {
-		@apply -translate-y-0.5;
-		box-shadow: 5px 6px 0 0 rgb(var(--c-ink));
+		@apply border-ink/30;
 	}
 
 	/* 入力欄（input/textarea/日付） */
 	.field {
-		@apply w-full rounded-2xl border-2 border-ink/70 bg-card px-4 py-3 text-ink placeholder-ink-soft transition-colors;
+		@apply w-full rounded-2xl border-2 border-ink/55 bg-card px-4 py-3 text-ink placeholder-ink-soft transition-colors;
 	}
 	.field:focus {
 		@apply border-tomato outline-none;
@@ -111,53 +105,9 @@
 		@apply inline-flex items-center gap-1 rounded-full border-2 border-ink px-3 py-1 text-xs font-bold;
 	}
 
-	/* 完了を示すハンコ風バッジ */
+	/* 完了を示す控えめなバッジ */
 	.stamp {
-		@apply inline-flex items-center gap-1 rounded-full border-2 border-dashed border-leaf px-3 py-1 text-xs font-bold text-leaf;
-		transform: rotate(-4deg);
-	}
-
-	/* 見出しの下半分に蛍光マーカー */
-	.marker {
-		background-image: linear-gradient(
-			to top,
-			rgb(var(--c-mustard) / 0.85) 0%,
-			rgb(var(--c-mustard) / 0.85) 40%,
-			transparent 40%
-		);
-		padding: 0 0.15em;
-	}
-
-	/* カード上部のマスキングテープ風装飾 */
-	.tape {
-		position: relative;
-		overflow: visible;
-	}
-	.tape::before {
-		content: '';
-		position: absolute;
-		top: -10px;
-		left: 24px;
-		width: 64px;
-		height: 20px;
-		background: rgb(var(--c-mustard) / 0.6);
-		border: 1px solid rgb(var(--c-ink) / 0.2);
-		transform: rotate(-4deg);
-		pointer-events: none;
-	}
-
-	/* 見出し横の手描き風の星 */
-	.doodle-star {
-		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MCA0MCc+PHBhdGggZD0nTTIwIDIgTDI0IDE1IEwzOCAxNCBMMjYgMjMgTDMxIDM3IEwyMCAyOCBMOSAzNyBMMTQgMjMgTDIgMTQgTDE2IDE1IFonIGZpbGw9J3JnYigyNDYsMTk1LDY4KScgc3Ryb2tlPSdyZ2IoNDYsNDIsMzgpJyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz48L3N2Zz4=');
-		background-repeat: no-repeat;
-		background-size: contain;
-	}
-
-	/* 空の状態などのくねくね線 */
-	.doodle-swirl {
-		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMjQnPjxwYXRoIGQ9J00yIDE2IEMgMTQgNCwgMjIgNCwgMzIgMTQgUyA1MiAyNCwgNjIgMTIgUyA4MiAyLCA5OCAxNCcgZmlsbD0nbm9uZScgc3Ryb2tlPSdyZ2IoNDYsNDIsMzgpJyBzdHJva2Utd2lkdGg9JzMnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcvPjwvc3ZnPg==');
-		background-repeat: no-repeat;
-		background-size: contain;
+		@apply inline-flex items-center gap-1 rounded-full border border-leaf/40 px-3 py-1 text-xs font-bold text-leaf;
 	}
 }
 
@@ -168,21 +118,9 @@
 	.sketch-card {
 		transition: none !important;
 	}
-
-	/* 通常時の影（shadow-sticker：4px 5px）と同じ大きさに保つ */
-	.btn-primary:hover,
-	.btn-primary:active {
-		transform: none !important;
-		box-shadow: 4px 5px 0 0 rgb(var(--c-ink)) !important;
-	}
-
-	/* 通常時の影（shadow-sticker-sm：2px 3px）と同じ大きさに保つ */
-	.btn-ghost:hover,
+	.btn-primary:active,
 	.btn-ghost:active,
-	.btn-icon:hover,
-	.btn-icon:active,
-	.sketch-card:hover {
+	.btn-icon:active {
 		transform: none !important;
-		box-shadow: 2px 3px 0 0 rgb(var(--c-ink)) !important;
 	}
 }
