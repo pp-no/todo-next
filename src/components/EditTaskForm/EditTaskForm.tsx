@@ -15,11 +15,7 @@ interface EditTaskFormProps {
 const SubmitButton = () => {
 	const { pending } = useFormStatus();
 	return (
-		<button
-			type="submit"
-			disabled={pending}
-			className="btn-primary w-full mt-8"
-		>
+		<button type="submit" disabled={pending} className="btn-primary w-full mt-8">
 			{pending ? (
 				<>
 					<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -141,10 +137,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ task }) => {
 
 				<SubmitButton />
 
-				<Link
-					href="/"
-					className="btn-ghost w-full mt-3"
-				>
+				<Link href="/" className="btn-ghost w-full mt-3">
 					キャンセル
 				</Link>
 			</form>

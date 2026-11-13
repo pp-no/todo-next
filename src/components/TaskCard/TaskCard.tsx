@@ -32,10 +32,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 				task.isCompleted
 					? 'border-leaf'
 					: isOverdue()
-					? 'border-berry'
-					: isUrgent()
-					? 'border-mustard tape'
-					: 'border-ink/20 hover:border-tomato'
+						? 'border-berry'
+						: isUrgent()
+							? 'border-mustard tape'
+							: 'border-ink/20 hover:border-tomato'
 			}`}
 		>
 			<div className="p-5 sm:p-6">
@@ -53,9 +53,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 							</h2>
 							<div
 								className={`flex-shrink-0 text-xs font-bold px-3 py-1 ${
-									task.isCompleted
-										? 'stamp'
-										: 'chip border-mustard bg-mustard/30 text-mustard-ink'
+									task.isCompleted ? 'stamp' : 'chip border-mustard bg-mustard/30 text-mustard-ink'
 								}`}
 							>
 								{task.isCompleted ? '✓ 完了' : '進行中'}
@@ -85,18 +83,16 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 									task.isCompleted
 										? 'text-ink-soft'
 										: isOverdue()
-										? 'text-berry font-bold'
-										: isUrgent()
-										? 'text-mustard-ink font-bold'
-										: 'text-ink-soft'
+											? 'text-berry font-bold'
+											: isUrgent()
+												? 'text-mustard-ink font-bold'
+												: 'text-ink-soft'
 								}`}
 							>
 								<PiCalendarBlank className="text-base" />
 								<span>{task.dueDate}</span>
 								{isOverdue() && !task.isCompleted && (
-									<span className="chip ml-1 border-berry bg-berry/10 text-berry">
-										期限切れ
-									</span>
+									<span className="chip ml-1 border-berry bg-berry/10 text-berry">期限切れ</span>
 								)}
 								{isUrgent() && !task.isCompleted && (
 									<span className="chip ml-1 border-mustard bg-mustard/30 text-mustard-ink">

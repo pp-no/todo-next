@@ -21,10 +21,7 @@ const SideMenu = () => {
 
 			{/* 新規タスクボタン */}
 			<div className="px-4 py-4 border-t-2 border-ink/10">
-				<Link
-					href="/new"
-					className="btn-primary w-full"
-				>
+				<Link href="/new" className="btn-primary w-full">
 					<PiPlusBold className="text-lg" />
 					<span>新しいタスク</span>
 				</Link>

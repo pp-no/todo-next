@@ -7,7 +7,13 @@ import Link from 'next/link';
 
 import { PiPlusBold, PiX } from 'react-icons/pi';
 import { PiList } from 'react-icons/pi';
-import { PiNotePencilDuotone, PiHouseDuotone, PiCheckCircleDuotone, PiClockDuotone, PiNotebookDuotone } from 'react-icons/pi';
+import {
+	PiNotePencilDuotone,
+	PiHouseDuotone,
+	PiCheckCircleDuotone,
+	PiClockDuotone,
+	PiNotebookDuotone,
+} from 'react-icons/pi';
 
 interface MainPageClientProps {
 	allTasks: TaskDocument[];
@@ -31,13 +37,20 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 
 	useEffect(() => {
 		document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
-		return () => { document.body.style.overflow = 'unset'; };
+		return () => {
+			document.body.style.overflow = 'unset';
+		};
 	}, [isMenuOpen]);
 
 	const filterItems = [
 		{ label: 'すべて', status: 'all' as const, icon: <PiHouseDuotone />, count: allPageCnt },
 		{ label: '未完了', status: 'pending' as const, icon: <PiClockDuotone />, count: pendingTasks },
-		{ label: '完了済み', status: 'completed' as const, icon: <PiCheckCircleDuotone />, count: completedTasks },
+		{
+			label: '完了済み',
+			status: 'completed' as const,
+			icon: <PiCheckCircleDuotone />,
+			count: completedTasks,
+		},
 	];
 
 	return (
@@ -62,11 +75,7 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 								</div>
 								<h2 className="font-hand text-2xl text-ink">My ToDo</h2>
 							</div>
-							<button
-								onClick={closeMenu}
-								className="btn-icon"
-								aria-label="メニューを閉じる"
-							>
+							<button onClick={closeMenu} className="btn-icon" aria-label="メニューを閉じる">
 								<PiX className="text-xl" />
 							</button>
 						</div>
@@ -75,7 +84,10 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							{filterItems.map(item => (
 								<button
 									key={item.status}
-									onClick={() => { setFilterStatus(item.status); closeMenu(); }}
+									onClick={() => {
+										setFilterStatus(item.status);
+										closeMenu();
+									}}
 									className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-colors ${
 										filterStatus === item.status
 											? 'bg-mustard/30 text-ink underline decoration-wavy decoration-tomato underline-offset-4'
@@ -97,11 +109,7 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							))}
 						</nav>
 
-						<Link
-							href="/new"
-							onClick={closeMenu}
-							className="btn-primary w-full mt-6"
-						>
+						<Link href="/new" onClick={closeMenu} className="btn-primary w-full mt-6">
 							<PiPlusBold />
 							<span>新しいタスク</span>
 						</Link>
@@ -129,10 +137,7 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							</span>
 						</h1>
 					</div>
-					<Link
-						href="/new"
-						className="btn-primary hidden md:flex"
-					>
+					<Link href="/new" className="btn-primary hidden md:flex">
 						<PiPlusBold className="text-lg" />
 						<span>新しいタスク</span>
 					</Link>
@@ -169,9 +174,7 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							{item.label}
 							<span
 								className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${
-									filterStatus === item.status
-										? 'bg-white/20 text-white'
-										: 'bg-paper text-ink-soft'
+									filterStatus === item.status ? 'bg-white/20 text-white' : 'bg-paper text-ink-soft'
 								}`}
 							>
 								{item.count}
@@ -198,10 +201,7 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							{filterStatus === 'completed' && 'タスクを完了するとここに表示されます'}
 						</p>
 						{filterStatus === 'all' && (
-							<Link
-								href="/new"
-								className="btn-primary"
-							>
+							<Link href="/new" className="btn-primary">
 								<PiPlusBold />
 								<span>タスクを追加</span>
 							</Link>

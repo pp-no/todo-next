@@ -7,15 +7,19 @@ export const dynamic = 'force-dynamic';
 
 const getExpiredTasks = async (): Promise<TaskDocument[]> => {
 	await connectDb();
-	const currentDate = new Date().toLocaleDateString('ja-JP', {
-		year: 'numeric',
-		month: '2-digit',
-		day: '2-digit',
-	}).replace(/\//g, '-');
+	const currentDate = new Date()
+		.toLocaleDateString('ja-JP', {
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+		})
+		.replace(/\//g, '-');
 	const tasks = await TaskModel.find({
 		isCompleted: false,
 		dueDate: { $lt: currentDate },
-	}).sort({ dueDate: 1 }).lean();
+	})
+		.sort({ dueDate: 1 })
+		.lean();
 	return JSON.parse(JSON.stringify(tasks));
 };
 
