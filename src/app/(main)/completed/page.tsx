@@ -15,9 +15,7 @@ const CompletedTaskPage = async () => {
 	const completedTasks = await getCompletedTasks();
 	return (
 		<div className="max-w-3xl mx-auto px-6 py-8">
-			<h1 className="font-hand text-3xl text-ink mb-6">
-				<span className="marker">完了済みのタスク</span>
-			</h1>
+			<h1 className="font-hand text-3xl text-ink mb-6">完了済みのタスク</h1>
 			{completedTasks.length === 0 ? (
 				<p className="text-ink-soft">完了済みのタスクはありません。</p>
 			) : (
