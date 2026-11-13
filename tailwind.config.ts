@@ -18,6 +18,7 @@ const config: Config = {
 				ink: 'rgb(var(--c-ink) / <alpha-value>)',
 				'ink-soft': 'rgb(var(--c-ink-soft) / <alpha-value>)',
 				tomato: 'rgb(var(--c-tomato) / <alpha-value>)',
+				'tomato-dark': 'rgb(var(--c-tomato-dark) / <alpha-value>)',
 				mustard: 'rgb(var(--c-mustard) / <alpha-value>)',
 				'mustard-ink': 'rgb(var(--c-mustard-ink) / <alpha-value>)',
 				leaf: 'rgb(var(--c-leaf) / <alpha-value>)',

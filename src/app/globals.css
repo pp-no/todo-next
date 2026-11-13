@@ -8,6 +8,7 @@
 	--c-ink: 46 42 38;
 	--c-ink-soft: 107 98 90;
 	--c-tomato: 160 88 68;
+	--c-tomato-dark: 141 77 60;
 	--c-mustard: 210 176 106;
 	--c-mustard-ink: 120 92 36;
 	--c-leaf: 62 112 84;
@@ -42,7 +43,7 @@
 		@apply inline-flex items-center justify-center gap-2 rounded-[18px] border-2 border-transparent bg-tomato px-5 py-3 font-bold text-white shadow-sticker transition duration-150 ease-out;
 	}
 	.btn-primary:hover {
-		@apply bg-tomato/90;
+		@apply bg-tomato-dark;
 	}
 	.btn-primary:active {
 		@apply translate-y-px;
