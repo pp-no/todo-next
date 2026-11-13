@@ -15,13 +15,13 @@ const NavItem: React.FC<NavItemProps> = ({ label, link, icon }) => {
 	return (
 		<Link
 			href={link}
-			className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
+			className={`flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-colors ${
 				isActive
-					? 'bg-blue-50 text-blue-700'
-					: 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+					? 'bg-mustard/30 text-ink underline decoration-wavy decoration-tomato underline-offset-4'
+					: 'text-ink-soft hover:bg-card hover:text-ink'
 			}`}
 		>
-			<span className={isActive ? 'text-blue-600' : 'text-gray-400'}>{icon}</span>
+			<span className={isActive ? 'text-tomato' : 'text-ink-soft'}>{icon}</span>
 			<span>{label}</span>
 		</Link>
 	);
