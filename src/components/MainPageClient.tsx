@@ -9,11 +9,11 @@ import {
 	PiPlusBold,
 	PiX,
 	PiList,
-	PiNotePencilDuotone,
-	PiHouseDuotone,
-	PiCheckCircleDuotone,
-	PiClockDuotone,
-	PiNotebookDuotone,
+	PiNotePencil,
+	PiHouse,
+	PiCheckCircle,
+	PiClock,
+	PiNotebook,
 } from 'react-icons/pi';
 
 interface MainPageClientProps {
@@ -44,12 +44,12 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 	}, [isMenuOpen]);
 
 	const filterItems = [
-		{ label: 'すべて', status: 'all' as const, icon: <PiHouseDuotone />, count: allPageCnt },
-		{ label: '未完了', status: 'pending' as const, icon: <PiClockDuotone />, count: pendingTasks },
+		{ label: 'すべて', status: 'all' as const, icon: <PiHouse />, count: allPageCnt },
+		{ label: '未完了', status: 'pending' as const, icon: <PiClock />, count: pendingTasks },
 		{
 			label: '完了済み',
 			status: 'completed' as const,
-			icon: <PiCheckCircleDuotone />,
+			icon: <PiCheckCircle />,
 			count: completedTasks,
 		},
 	];
@@ -64,19 +64,17 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 			>
 				<div className="absolute inset-0 bg-ink/40" onClick={closeMenu} />
 				<div
-					className={`absolute left-0 top-0 bottom-0 w-72 bg-card border-r-2 border-ink shadow-sticker transform transition-transform duration-300 ${
+					className={`absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-ink/15 transform transition-transform duration-300 ${
 						isMenuOpen ? 'translate-x-0' : '-translate-x-full'
 					}`}
 				>
 					<div className="p-5">
 						<div className="flex items-center justify-between mb-6">
 							<div className="flex items-center gap-3">
-								<div className="flex items-center justify-center rounded-full border-2 border-ink bg-peach p-2">
-									<PiNotePencilDuotone className="text-ink text-xl" />
+								<div className="flex items-center justify-center rounded-full border border-ink/20 bg-peach p-2">
+									<PiNotePencil className="text-ink text-xl" />
 								</div>
-								<h2 className="font-hand text-2xl text-ink">
-									<span className="marker">My ToDo</span>
-								</h2>
+								<h2 className="font-hand text-2xl text-ink">My ToDo</h2>
 							</div>
 							<button onClick={closeMenu} className="btn-icon" aria-label="メニューを閉じる">
 								<PiX className="text-xl" />
@@ -93,21 +91,13 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 									}}
 									className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-colors ${
 										filterStatus === item.status
-											? 'bg-mustard/30 text-ink underline decoration-wavy decoration-tomato underline-offset-4'
+											? 'bg-ink/5 text-ink'
 											: 'text-ink-soft hover:bg-paper'
 									}`}
 								>
 									<span className="text-lg">{item.icon}</span>
 									<span>{item.label}</span>
-									<span
-										className={`chip ml-auto ${
-											filterStatus === item.status
-												? 'border-tomato bg-tomato/10 text-tomato'
-												: 'border-ink/30 text-ink-soft'
-										}`}
-									>
-										{item.count}
-									</span>
+									<span className="chip ml-auto border-ink/20 text-ink-soft">{item.count}</span>
 								</button>
 							))}
 						</nav>
@@ -133,11 +123,9 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 							<PiList className="text-xl" />
 						</button>
 						<h1 className="font-hand text-3xl text-ink">
-							<span className="marker">
-								{filterStatus === 'all' && 'すべてのタスク'}
-								{filterStatus === 'pending' && '未完了のタスク'}
-								{filterStatus === 'completed' && '完了済みのタスク'}
-							</span>
+							{filterStatus === 'all' && 'すべてのタスク'}
+							{filterStatus === 'pending' && '未完了のタスク'}
+							{filterStatus === 'completed' && '完了済みのタスク'}
 						</h1>
 					</div>
 					<Link href="/new" className="btn-primary hidden md:flex">
@@ -146,38 +134,22 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 					</Link>
 				</div>
 
-				{/* 統計カード */}
-				<div className="grid grid-cols-3 gap-4 mb-6">
-					<div className="rounded-[22px_14px_22px_14px] border-2 border-ink bg-peach p-4 shadow-sticker-sm -rotate-1">
-						<p className="text-sm text-ink-soft mb-1">合計</p>
-						<p className="font-hand text-3xl text-ink">{allPageCnt}</p>
-					</div>
-					<div className="rounded-[14px_22px_14px_22px] border-2 border-ink bg-mustard/40 p-4 shadow-sticker-sm rotate-1">
-						<p className="text-sm text-ink-soft mb-1">未完了</p>
-						<p className="font-hand text-3xl text-mustard-ink">{pendingTasks}</p>
-					</div>
-					<div className="rounded-[22px_14px_22px_14px] border-2 border-ink bg-leaf/15 p-4 shadow-sticker-sm -rotate-1">
-						<p className="text-sm text-ink-soft mb-1">完了済み</p>
-						<p className="font-hand text-3xl text-leaf">{completedTasks}</p>
-					</div>
-				</div>
-
 				{/* フィルタータブ */}
 				<div className="flex gap-1.5 sm:gap-2 mb-6 overflow-x-auto">
 					{filterItems.map(item => (
 						<button
 							key={item.status}
 							onClick={() => setFilterStatus(item.status)}
-							className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 border-ink px-3 py-1.5 text-xs font-bold transition-colors sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${
+							className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-bold transition-colors sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${
 								filterStatus === item.status
-									? 'bg-tomato text-white shadow-sticker-sm'
-									: 'bg-card text-ink-soft hover:bg-paper'
+									? 'border-ink/25 bg-card text-ink'
+									: 'border-transparent text-ink-soft hover:text-ink'
 							}`}
 						>
 							{item.label}
 							<span
 								className={`whitespace-nowrap rounded-full px-1.5 py-0.5 text-xs font-bold ${
-									filterStatus === item.status ? 'bg-white/20 text-white' : 'bg-paper text-ink-soft'
+									filterStatus === item.status ? 'bg-ink/5 text-ink' : 'bg-ink/5 text-ink-soft'
 								}`}
 							>
 								{item.count}
@@ -189,15 +161,14 @@ export default function MainPageClient({ allTasks }: MainPageClientProps) {
 				{/* タスクリスト */}
 				{filteredTasks.length === 0 ? (
 					<div className="flex flex-col items-center justify-center py-20 text-center">
-						<div className="flex items-center justify-center rounded-full border-2 border-ink bg-peach p-5 mb-4">
-							<PiNotebookDuotone className="text-5xl text-ink" />
+						<div className="flex items-center justify-center rounded-full border border-ink/20 bg-peach p-5 mb-4">
+							<PiNotebook className="text-5xl text-ink" />
 						</div>
 						<h2 className="font-hand text-2xl text-ink mb-2">
 							{filterStatus === 'all' && 'タスクがありません'}
 							{filterStatus === 'pending' && '未完了のタスクはありません'}
 							{filterStatus === 'completed' && '完了済みのタスクはありません'}
 						</h2>
-						<div className="doodle-swirl w-24 h-6 mb-4" />
 						<p className="text-ink-soft text-sm mb-6">
 							{filterStatus === 'all' && '新しいタスクを追加してみましょう'}
 							{filterStatus === 'pending' && 'すべてのタスクが完了しています！'}
