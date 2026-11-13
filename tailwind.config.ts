@@ -18,6 +18,7 @@ const config: Config = {
 				ink: 'rgb(var(--c-ink) / <alpha-value>)',
 				'ink-soft': 'rgb(var(--c-ink-soft) / <alpha-value>)',
 				tomato: 'rgb(var(--c-tomato) / <alpha-value>)',
+				'tomato-dark': 'rgb(var(--c-tomato-dark) / <alpha-value>)',
 				mustard: 'rgb(var(--c-mustard) / <alpha-value>)',
 				'mustard-ink': 'rgb(var(--c-mustard-ink) / <alpha-value>)',
 				leaf: 'rgb(var(--c-leaf) / <alpha-value>)',
@@ -29,8 +30,8 @@ const config: Config = {
 				sans: ['var(--font-zen-maru)', 'sans-serif'],
 			},
 			boxShadow: {
-				sticker: '4px 5px 0 0 rgb(var(--c-ink))',
-				'sticker-sm': '2px 3px 0 0 rgb(var(--c-ink))',
+				sticker: '2px 3px 0 0 rgb(var(--c-ink) / 0.15)',
+				'sticker-sm': '1px 2px 0 0 rgb(var(--c-ink) / 0.15)',
 			},
 		},
 	},
